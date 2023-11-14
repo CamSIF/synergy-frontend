@@ -8,7 +8,7 @@ interface IconProps {
 }
 
 const StyledIcon = styled(FontAwesomeIcon)(({ theme }) => ({
-  color: theme.palette.secondary.main,
+  color: theme.palette.primary.main,
   height: "1.75em",
 }));
 

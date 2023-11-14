@@ -4,10 +4,10 @@ let theme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#6D95CA",
+      main: "#E74C3C",
     },
     secondary: {
-      main: "#E74C3C",
+      main: "#6D95CA",
     },
     error: {
       main: "#FF5454",

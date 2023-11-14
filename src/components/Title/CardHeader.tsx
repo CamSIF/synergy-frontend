@@ -1,11 +1,11 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 
-interface Header1Props {
+interface CardHeaderProps {
   children: string;
 }
 
-export const CardHeader: React.FC<Header1Props> = ({ children }) => {
+export const CardHeader: React.FC<CardHeaderProps> = ({ children }) => {
   return <Typography variant="h4">{children}</Typography>;
 };
 

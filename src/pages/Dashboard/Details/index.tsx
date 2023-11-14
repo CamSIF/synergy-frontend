@@ -5,7 +5,6 @@ import PnLCard from "src/pages/Dashboard/Details/PnLCard";
 import AllocationCard from "src/pages/Dashboard/Details/AllocationCard";
 import ShareValueCard from "src/pages/Dashboard/Details/ShareValueCard";
 
-
 import Header2 from "src/components/Title/Header2";
 
 export const Details: React.FC<{}> = () => {
