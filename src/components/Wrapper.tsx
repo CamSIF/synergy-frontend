@@ -1,13 +1,11 @@
 import React, { ReactNode } from "react";
-import { styled } from "@mui/system";
+import { styled } from "@mui/material/styles";
 
 interface WrapperProps {
   children: ReactNode;
 }
 
-const StyledWrapper = styled("div")({
-  padding: "24px 48px",
-});
+const StyledWrapper = styled("div")({ padding: "24px 48px" });
 
 export const Header1: React.FC<WrapperProps> = ({ children }) => {
   return <StyledWrapper>{children}</StyledWrapper>;

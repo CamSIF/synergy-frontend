@@ -17,7 +17,7 @@ let theme = createTheme({
     },
     text: {
       primary: "#FFFFFF",
-      secondary: "#CCCCCC",
+      secondary: "#BBBBBB",
     },
     background: {
       default: "#0E1520",
