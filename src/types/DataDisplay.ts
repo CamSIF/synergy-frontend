@@ -1,7 +1,5 @@
-import { ReactNode } from "react";
-
 export interface SimpleRow {
-    [key: string]: ReactNode
+    [key: string]: string | number
 }
 
 export interface SimpleCol<Row> {
