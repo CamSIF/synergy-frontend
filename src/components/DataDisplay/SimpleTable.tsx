@@ -6,42 +6,48 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 
 import { SimpleRow, SimpleCol } from "src/types/DataDisplay";
+import Card from "@mui/material/Card";
 
 interface TableProps<Row> {
   rows: Row[];
   columns: SimpleCol<Row>[];
+  minWidth?: number;
 }
 
-const SimpleTable = <Row extends SimpleRow,>({
+const SimpleTable = <Row extends SimpleRow>({
   rows,
   columns,
+  minWidth,
 }: TableProps<Row>): React.ReactElement => {
-  const columnFields: (keyof Row)[] = columns.map((column) => column.field);
-
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            {columns.map((column) => (
-              <TableCell>{column.headerName}</TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
+    <Card variant="outlined" sx={{ backgroundColor: "transparent" }}>
+      <TableContainer>
+        <Table sx={{ minWidth: minWidth }}>
+          <TableHead>
             <TableRow>
-              {columnFields.map((field) => (
-                <TableCell>{row[field]}</TableCell>
+              {columns.map((column) => (
+                <TableCell sx={{ fontWeight: "bolder" }}>
+                  {column.headerName}
+                </TableCell>
               ))}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                {columns.map((column) => (
+                  <TableCell>{row[column.field]}</TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Card>
   );
 };
 
