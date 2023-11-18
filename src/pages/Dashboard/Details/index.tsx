@@ -12,15 +12,9 @@ export const Details: React.FC<{}> = () => {
     <>
       <Header2>Details</Header2>
       <FlexContainer>
-        <PnLCard title="Total profit and loss">
-          <div>Card 1</div>
-        </PnLCard>
-        <AllocationCard title="Allocation per equity">
-          <div>Card 2</div>
-        </AllocationCard>
-        <ShareValueCard title="Shares and value per equity">
-          <div>Card 3</div>
-        </ShareValueCard>
+        <PnLCard title="Total profit and loss" />
+        <AllocationCard title="Allocation per equity" />
+        <ShareValueCard title="Shares and value per equity" />
       </FlexContainer>
     </>
   );
