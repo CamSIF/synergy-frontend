@@ -4,40 +4,30 @@ import { useTheme } from '@mui/material/styles';
 import Card from '@mui/material/Card/Card';
 import CardContent from '@mui/material/CardContent/CardContent';
 import Typography from '@mui/material/Typography';
-
-export type LineChartData = {
-  id: number
-  value: number
-  label: string
-}
-
-export interface LineChartComponentProps{
-  xAxis: [{}] //e.g. xAxis={[{data: [1, 2, 3, 5, 8, 10]}]}
-  yAxis: number[]
-  width?: number  
-  height?: number
-  title?: string
-}
+import { LineChartComponentProps } from 'src/types/LineChartType';
 
 export default function LineChartComponent({xAxis, yAxis, title, width, height}: LineChartComponentProps) {
   const theme = useTheme()
   return (
     <Card sx={{ minWidth: 275 }}>
-      <CardContent>
-        <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
+      <div>
+        <div style={{paddingLeft: '5vw'}}>
+          <h3 color="text.secondary" style={{marginBottom:'0', marginTop:'5'}}>
+            {title}
+          </h3>
+          </div>
           <LineChart
-            xAxis={xAxis}
+            xAxis={[{data: xAxis}]}
             series={[
               {
                 data: yAxis,
                 color: theme.palette.secondary.main
               },
             ]}
-            width={500}
-            height={300}
+            width={width}
+            height={height}
           />
-        </Typography>
-      </CardContent>
+      </div>
     </Card> 
   );
 }
