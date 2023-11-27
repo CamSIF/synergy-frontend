@@ -12,6 +12,7 @@ interface OverviewCardProps {
 const RowDiv = styled("div")({
   display: "flex",
   alignItems: "center",
+  height: "51px",
 });
 
 const ContentDiv = styled("div")({
@@ -27,10 +28,10 @@ const Title = styled(Typography)({
   fontSize: "0.9em",
 }) as typeof Typography;
 
-const numberFormatter = new Intl.NumberFormat('en-US', {
-  style: 'decimal',
+const numberFormatter = new Intl.NumberFormat("en-US", {
+  style: "decimal",
   minimumFractionDigits: 2,
-  maximumFractionDigits: 2
+  maximumFractionDigits: 2,
 });
 
 export const OverviewCard: React.FC<OverviewCardProps> = ({

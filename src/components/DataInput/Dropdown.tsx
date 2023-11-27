@@ -27,11 +27,13 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   return (
     <Box minWidth={minWidth}>
-      <FormControl fullWidth color="secondary">
+      <FormControl fullWidth>
         <InputLabel>{label}</InputLabel>
         <Select value={state} label={label} onChange={handleChange}>
-          {items.map((item) => (
-            <MenuItem value={item.value}>{item.label}</MenuItem>
+          {items.map((item, idx) => (
+            <MenuItem key={idx} value={item.value}>
+              {item.label}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>
