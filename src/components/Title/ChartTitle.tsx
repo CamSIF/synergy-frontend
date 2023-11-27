@@ -11,11 +11,7 @@ const StyledChartTitle = styled(Typography)({
 }) as typeof Typography;
 
 export const ChartTitle: React.FC<ChartHeaderProps> = ({ children }) => {
-  return (
-    <StyledChartTitle variant="h4" color="text.secondary">
-      {children}
-    </StyledChartTitle>
-  );
+  return <StyledChartTitle color="text.secondary">{children}</StyledChartTitle>;
 };
 
 export default ChartTitle;
