@@ -24,37 +24,47 @@ export const Overview: React.FC<{}> = () => {
   );
 
   useEffect(() => {
+    const req = new FormData();
+    req.append("fund", fund);
+    setCard(
+      <>
+        <OverviewSkeleton />
+        <OverviewSkeleton />
+        <OverviewSkeleton />
+      </>
+    );
     axios
-      .post(url, { fund: fund })
+      .post(url, req)
       .then((response) => {
-        console.log(response);
+        setCard(
+          <>
+            <OverviewCard
+              icon={<ValueIcon />}
+              title="Total Value"
+              amount={response.data.total_value}
+            />
+            <OverviewCard
+              icon={<CashIcon />}
+              title="Total Cash"
+              amount={response.data.total_cash}
+            />
+            <OverviewCard
+              icon={<ProfitIcon />}
+              title="Overall Profit"
+              amount={response.data.overall_profit}
+            />
+          </>
+        );
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [fund, url]);
 
   return (
     <>
       <Header2>Overview</Header2>
-      <FlexContainer>
-        {/* <OverviewCard
-          icon={<ValueIcon />}
-          title="Total Value"
-          amount={11000000.122}
-        />
-        <OverviewCard
-          icon={<CashIcon />}
-          title="Total Cash"
-          amount={11000000.122}
-        />
-        <OverviewCard
-          icon={<ProfitIcon />}
-          title="Today's Profit"
-          amount={11000000.122}
-        /> */}
-        {card}
-      </FlexContainer>
+      <FlexContainer>{card}</FlexContainer>
     </>
   );
 };

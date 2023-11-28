@@ -1,4 +1,4 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useContext } from "react";
 import Wrapper from "src/components/Wrapper";
 import Header1 from "src/components/Title/Header1";
 import Dropdown from "src/components/DataInput/Dropdown";
@@ -11,26 +11,24 @@ import { DropdownItem } from "src/types/DataInput";
 
 import { styled } from "@mui/material";
 
-export const FundContext = createContext("camsif-main");
+export const FundContext = createContext("camsif_main");
 
 const StyledDiv = styled("div")({
   height: "80px",
 });
 
 export const Dashboard: React.FC<{}> = () => {
-  const [fund, setFund] = useState("");
+  const [fund, setFund] = useState(useContext(FundContext));
   const fundItems: DropdownItem[] = [
     {
       label: "Main",
-      value: "camsif-main",
+      value: "camsif_main",
     },
     {
       label: "Tech",
-      value: "camsif-tech",
+      value: "camsif_tech",
     },
   ];
-
-  console.log(fund);
 
   return (
     <FundContext.Provider value={fund}>

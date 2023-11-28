@@ -34,6 +34,13 @@ const numberFormatter = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 2,
 });
 
+const formatted_amount = (amount: number): string => {
+  if (amount < 0) {
+    return `- £ ${numberFormatter.format(Math.abs(amount))}`;
+  }
+  return `£ ${numberFormatter.format(amount)}`;
+};
+
 export const OverviewCard: React.FC<OverviewCardProps> = ({
   icon,
   title,
@@ -44,7 +51,7 @@ export const OverviewCard: React.FC<OverviewCardProps> = ({
       <RowDiv>
         {icon}
         <ContentDiv>
-          <Amount>£ {numberFormatter.format(amount)}</Amount>
+          <Amount>{formatted_amount(amount)}</Amount>
           <Title color="text.secondary">{title}</Title>
         </ContentDiv>
       </RowDiv>
