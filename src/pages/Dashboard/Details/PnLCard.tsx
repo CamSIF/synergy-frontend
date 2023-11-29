@@ -1,7 +1,6 @@
 import React from "react";
-import { useTheme } from "@mui/material/styles";
 import DetailsCard from "src/pages/Dashboard/Details/DetailsCard";
-import LineChart from "src/components/LineChart";
+import LineChart from "src/components/DataDisplay/LineChart";
 import { YAxis } from "src/types/DataDisplay";
 
 interface PnLCardProps {
@@ -9,18 +8,22 @@ interface PnLCardProps {
 }
 
 export const PnLCard: React.FC<PnLCardProps> = ({ title }) => {
-  const theme = useTheme();
-
   const MockSeries: YAxis[] = [
     {
       data: [2, 5.5, 2, 8.5, -1, 5],
-      color: theme.palette.secondary.main,
       label: "One",
     },
     {
       data: [10, 2, 6, -2, 7, 5],
-      color: theme.palette.primary.main,
       label: "Two",
+    },
+    {
+      data: [8, 3, 1, 5, 4, 0],
+      label: "Three",
+    },
+    {
+      data: [0, 10, 0, 6, 0, 5],
+      label: "Four",
     },
   ];
 

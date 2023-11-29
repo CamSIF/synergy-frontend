@@ -9,6 +9,5 @@ export interface SimpleCol<Row> {
 
 export interface YAxis {
   data: number[];
-  color: string;
   label?: string;
 }
