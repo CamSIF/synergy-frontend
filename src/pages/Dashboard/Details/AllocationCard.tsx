@@ -8,7 +8,7 @@ interface AllocationCardProps {
 export const AllocationCard: React.FC<AllocationCardProps> = ({ title }) => {
   return (
     <DetailsCard title={title} responsive={{ xs: 12, sm: 12, md: 6 }}>
-      <div>Allocation card</div>
+      Allocation card
     </DetailsCard>
   );
 };
