@@ -10,51 +10,22 @@ import OverviewSkeleton from "src/pages/Dashboard/Overview/OverviewSkeleton";
 import ValueIcon from "src/pages/Dashboard/Overview/Icon/ValueIcon";
 import CashIcon from "src/pages/Dashboard/Overview/Icon/CashIcon";
 import ProfitIcon from "src/pages/Dashboard/Overview/Icon/ProfitIcon";
+import { FundOverview } from "src/types/API";
 
 export const Overview: React.FC<{}> = () => {
   const fund = useContext(FundContext);
   const url = `${process.env.REACT_APP_API_URL}api/fund_overview`;
 
-  const [card, setCard] = useState(
-    <>
-      <OverviewSkeleton />
-      <OverviewSkeleton />
-      <OverviewSkeleton />
-    </>
-  );
+  const [data, setData] = useState<FundOverview | undefined>(undefined);
 
   useEffect(() => {
     const req = new FormData();
     req.append("fund", fund);
-    setCard(
-      <>
-        <OverviewSkeleton />
-        <OverviewSkeleton />
-        <OverviewSkeleton />
-      </>
-    );
+    setData(undefined);
     axios
       .post(url, req)
       .then((response) => {
-        setCard(
-          <>
-            <OverviewCard
-              icon={<ValueIcon />}
-              title="Total Value"
-              amount={response.data.total_value}
-            />
-            <OverviewCard
-              icon={<CashIcon />}
-              title="Total Cash"
-              amount={response.data.total_cash}
-            />
-            <OverviewCard
-              icon={<ProfitIcon />}
-              title="Overall Profit"
-              amount={response.data.overall_profit}
-            />
-          </>
-        );
+        setData(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -64,7 +35,34 @@ export const Overview: React.FC<{}> = () => {
   return (
     <>
       <Header2>Overview</Header2>
-      <FlexContainer>{card}</FlexContainer>
+      <FlexContainer>
+        {!data && (
+          <>
+            <OverviewSkeleton />
+            <OverviewSkeleton />
+            <OverviewSkeleton />
+          </>
+        )}
+        {data && (
+          <>
+            <OverviewCard
+              icon={<ValueIcon />}
+              title="Total Value"
+              amount={data.total_value}
+            />
+            <OverviewCard
+              icon={<CashIcon />}
+              title="Total Cash"
+              amount={data.total_cash}
+            />
+            <OverviewCard
+              icon={<ProfitIcon />}
+              title="Overall Profit"
+              amount={data.overall_profit}
+            />
+          </>
+        )}
+      </FlexContainer>
     </>
   );
 };
