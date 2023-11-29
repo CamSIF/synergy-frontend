@@ -1,7 +1,11 @@
-import React from "react";
-import TitledFlexCard from "src/pages/Dashboard/Details/TitledFlexCard";
+import React, { useState, useEffect, useContext } from "react";
+import TitledFlexCard from "src/components/FlexBox/TitledFlexCard";
 import LineChart from "src/components/DataDisplay/LineChart";
 import { YAxis } from "src/types/DataDisplay";
+
+import { FundContext } from "src/pages/Dashboard";
+
+import { FundPNL } from "src/types/API";
 
 interface PnLCardProps {
   title: string;
@@ -32,7 +36,6 @@ export const PnLCard: React.FC<PnLCardProps> = ({ title }) => {
       <LineChart
         xAxis={[1, 2, 3, 5, 8, 10]}
         series={MockSeries}
-        title={"Sample line chart"}
         height={300}
       />
     </TitledFlexCard>

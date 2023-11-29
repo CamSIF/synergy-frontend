@@ -7,3 +7,8 @@ export interface FundOverview {
 export interface FundPerEquity {
   [key: string]: number;
 }
+
+export interface FundPNL {
+  dates: string[],
+  values: number[]
+}
