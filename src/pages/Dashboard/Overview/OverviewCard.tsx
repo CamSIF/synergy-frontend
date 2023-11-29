@@ -19,12 +19,12 @@ const ContentDiv = styled("div")({
   padding: "0 16px 0",
 });
 
-const Amount = styled(Typography)({
+export const Amount = styled(Typography)({
   fontWeight: "bolder",
   fontSize: "1.2em",
 }) as typeof Typography;
 
-const Title = styled(Typography)({
+export const Title = styled(Typography)({
   fontSize: "0.9em",
 }) as typeof Typography;
 

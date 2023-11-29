@@ -12,9 +12,10 @@ import CashIcon from "src/pages/Dashboard/Overview/Icon/CashIcon";
 import ProfitIcon from "src/pages/Dashboard/Overview/Icon/ProfitIcon";
 import { FundOverview } from "src/types/API";
 
+const url = `${process.env.REACT_APP_API_URL}api/fund_overview`;
+
 export const Overview: React.FC<{}> = () => {
   const fund = useContext(FundContext);
-  const url = `${process.env.REACT_APP_API_URL}api/fund_overview`;
 
   const [data, setData] = useState<FundOverview | undefined>(undefined);
 
@@ -30,20 +31,13 @@ export const Overview: React.FC<{}> = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [fund, url]);
+  }, [fund]);
 
   return (
     <>
       <Header2>Overview</Header2>
       <FlexContainer>
-        {!data && (
-          <>
-            <OverviewSkeleton />
-            <OverviewSkeleton />
-            <OverviewSkeleton />
-          </>
-        )}
-        {data && (
+        {data ? (
           <>
             <OverviewCard
               icon={<ValueIcon />}
@@ -60,6 +54,12 @@ export const Overview: React.FC<{}> = () => {
               title="Overall Profit"
               amount={data.overall_profit}
             />
+          </>
+        ) : (
+          <>
+            <OverviewSkeleton />
+            <OverviewSkeleton />
+            <OverviewSkeleton />
           </>
         )}
       </FlexContainer>

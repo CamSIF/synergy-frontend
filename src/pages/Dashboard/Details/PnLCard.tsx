@@ -1,5 +1,5 @@
 import React from "react";
-import DetailsCard from "src/pages/Dashboard/Details/DetailsCard";
+import TitledFlexCard from "src/pages/Dashboard/Details/TitledFlexCard";
 import LineChart from "src/components/DataDisplay/LineChart";
 import { YAxis } from "src/types/DataDisplay";
 
@@ -28,14 +28,14 @@ export const PnLCard: React.FC<PnLCardProps> = ({ title }) => {
   ];
 
   return (
-    <DetailsCard title={title} responsive={{ xs: 12, sm: 12, md: 12 }}>
+    <TitledFlexCard title={title} responsive={{ xs: 12, sm: 12, md: 12 }}>
       <LineChart
         xAxis={[1, 2, 3, 5, 8, 10]}
         series={MockSeries}
         title={"Sample line chart"}
         height={300}
       />
-    </DetailsCard>
+    </TitledFlexCard>
   );
 };
 

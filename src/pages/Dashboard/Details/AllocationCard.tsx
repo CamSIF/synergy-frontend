@@ -1,6 +1,6 @@
 import React from "react";
-import DetailsCard from "src/pages/Dashboard/Details/DetailsCard";
-import PieChartComponent from "src/components/DataDisplay/PieChart";
+import TitledFlexCard from "src/components/FlexBox/TitledFlexCard";
+import PieChart from "src/components/DataDisplay/PieChart";
 
 interface AllocationCardProps {
   title: string;
@@ -8,8 +8,8 @@ interface AllocationCardProps {
 
 export const AllocationCard: React.FC<AllocationCardProps> = ({ title }) => {
   return (
-    <DetailsCard title={title} responsive={{ xs: 12, sm: 12, md: 6 }}>
-      <PieChartComponent
+    <TitledFlexCard title={title} responsive={{ xs: 12, sm: 12, md: 6 }}>
+      <PieChart
         title="Sample pie chart"
         data={[
           { value: 10, label: "series A" },
@@ -20,7 +20,7 @@ export const AllocationCard: React.FC<AllocationCardProps> = ({ title }) => {
         percentage={"toggle"}
         height={200}
       />
-    </DetailsCard>
+    </TitledFlexCard>
   );
 };
 

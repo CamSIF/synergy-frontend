@@ -2,6 +2,7 @@ import React from "react";
 import FlexCard from "src/components/FlexBox/FlexCard";
 import { styled } from "@mui/material/styles";
 import Skeleton from "@mui/material/Skeleton";
+import { Amount, Title } from "src/pages/Dashboard/Overview/OverviewCard";
 
 const RowDiv = styled("div")({
   display: "flex",
@@ -22,8 +23,8 @@ export const OverviewSkeleton: React.FC<{}> = () => {
           <Skeleton variant="circular" width={"1.75em"} height={"1.75em"} />
         </div>
         <ContentDiv>
-          <Skeleton variant="text" sx={{ fontSize: "1.2em" }} />
-          <Skeleton variant="text" sx={{ fontSize: "0.9em" }} />
+          <Amount><Skeleton /></Amount>
+          <Title><Skeleton /></Title>
         </ContentDiv>
       </RowDiv>
     </FlexCard>
