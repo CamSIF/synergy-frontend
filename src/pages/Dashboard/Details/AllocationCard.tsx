@@ -2,13 +2,12 @@ import React from "react";
 import TitledFlexCard from "src/components/FlexBox/TitledFlexCard";
 import PieChart from "src/components/DataDisplay/PieChart";
 
-interface AllocationCardProps {
-  title: string;
-}
-
-export const AllocationCard: React.FC<AllocationCardProps> = ({ title }) => {
+export const AllocationCard: React.FC<{}> = () => {
   return (
-    <TitledFlexCard title={title} responsive={{ xs: 12, sm: 12, md: 6 }}>
+    <TitledFlexCard
+      title="Allocation per equity"
+      responsive={{ xs: 12, sm: 12, md: 6 }}
+    >
       <PieChart
         title="Sample pie chart"
         data={[

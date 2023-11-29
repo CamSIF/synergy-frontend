@@ -1,6 +1,5 @@
 import React from "react";
 import TitledFlexCard from "src/components/FlexBox/TitledFlexCard";
-
 import SimpleTable from "src/components/DataDisplay/SimpleTable";
 import { SimpleCol, SimpleRow } from "src/types/DataDisplay";
 import { FundPerEquity } from "src/types/API";
@@ -39,11 +38,7 @@ interface ShareValueRow extends SimpleRow {
   shares: number;
 }
 
-interface ShareValueCardProps {
-  title: string;
-}
-
-export const ShareValueCard: React.FC<ShareValueCardProps> = ({ title }) => {
+export const ShareValueCard: React.FC<{}> = () => {
   const sharesData = ApiCall<FundPerEquity>(url_shares);
   const valueData = ApiCall<FundPerEquity>(url_value);
   const rows: ShareValueRow[] = ShareValueRowMap(sharesData, valueData);
@@ -51,7 +46,10 @@ export const ShareValueCard: React.FC<ShareValueCardProps> = ({ title }) => {
   return (
     <>
       {sharesData && valueData ? (
-        <TitledFlexCard title={title} responsive={responsive}>
+        <TitledFlexCard
+          title="Shares and value per equity"
+          responsive={responsive}
+        >
           <SimpleTable columns={columns} rows={rows} minWidth={350} />
         </TitledFlexCard>
       ) : (

@@ -4,12 +4,21 @@ import { YAxis } from "src/types/DataDisplay";
 import { chooseColor } from "src/components/DataDisplay/color";
 
 interface LineChartProps {
-  xAxis: number[];
+  xAxis: (string | number)[];
   series: YAxis[];
   width?: number;
   height?: number;
   title?: string;
 }
+
+const containString = (array: (string | number)[]): boolean => {
+  for (const i in array) {
+    if (typeof i === "string") {
+      return true;
+    }
+  }
+  return false;
+};
 
 export const LineChart: React.FC<LineChartProps> = ({
   xAxis,
@@ -21,16 +30,22 @@ export const LineChart: React.FC<LineChartProps> = ({
   return (
     <>
       {title && <ChartTitle>{title}</ChartTitle>}
-      <Line
-        xAxis={[{ data: xAxis }]}
-        series={series.map((yaxis, idx) => ({
-          ...yaxis,
-          curve: "linear",
-          color: chooseColor(idx),
-        }))}
-        width={width}
-        height={height}
-      />
+        <Line
+          xAxis={[
+            {
+              scaleType: containString(xAxis) ? "point" : undefined,
+              data: xAxis,
+            },
+          ]}
+          series={series.map((yaxis, idx) => ({
+            ...yaxis,
+            curve: "linear",
+            color: chooseColor(idx),
+          }))}
+          width={width}
+          height={height}
+          sx={{ overflowX: "scroll" }}
+        />
     </>
   );
 };
