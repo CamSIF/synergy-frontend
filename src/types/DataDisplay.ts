@@ -11,3 +11,8 @@ export interface YAxis {
   data: number[];
   label?: string;
 }
+
+export interface PieData {
+  value: number;
+  label: string;
+};
