@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import { AccountContext, FundContext } from "src/pages/Dashboard";
 
-export const ApiCall = <Data>(url: string) => {
+export const FundApiCall = <Data>(url: string) => {
   const account = useContext(AccountContext);
   const fund = useContext(FundContext);
   const [data, setData] = useState<Data | undefined>(undefined);
@@ -25,4 +25,4 @@ export const ApiCall = <Data>(url: string) => {
   return data;
 };
 
-export default ApiCall;
+export default FundApiCall;

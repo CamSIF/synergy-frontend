@@ -4,7 +4,7 @@ import SimpleTable from "src/components/DataDisplay/SimpleTable";
 import { SimpleCol, SimpleRow } from "src/types/DataDisplay";
 import { FundPerEquity } from "src/types/API";
 import TitledFlexSkeleton from "src/components/FlexBox/TitledFlexSkeleton";
-import ApiCall from "src/components/ApiCall";
+import FundApiCall from "src/components/FundApiCall";
 
 const responsive = { xs: 12, sm: 12, md: 6 };
 const url_shares = `${process.env.REACT_APP_API_URL}api/fund_shares_per_equity`;
@@ -39,8 +39,8 @@ interface ShareValueRow extends SimpleRow {
 }
 
 export const ShareValueCard: React.FC<{}> = () => {
-  const sharesData = ApiCall<FundPerEquity>(url_shares);
-  const valueData = ApiCall<FundPerEquity>(url_value);
+  const sharesData = FundApiCall<FundPerEquity>(url_shares);
+  const valueData = FundApiCall<FundPerEquity>(url_value);
   const rows: ShareValueRow[] = ShareValueRowMap(sharesData, valueData);
 
   return (

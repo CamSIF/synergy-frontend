@@ -1,6 +1,6 @@
 import { PieChart as Pie } from "@mui/x-charts/PieChart";
 import ChartTitle from "src/components/Title/ChartTitle";
-import Switch from "src/components/Switch";
+import Switch from "src/components/DataInput/Switch";
 import { useState } from "react";
 import { PieData } from "src/types/DataDisplay";
 import { chooseColor } from "src/components/DataDisplay/color";

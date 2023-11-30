@@ -8,12 +8,12 @@ import ValueIcon from "src/pages/Dashboard/Overview/Icon/ValueIcon";
 import CashIcon from "src/pages/Dashboard/Overview/Icon/CashIcon";
 import ProfitIcon from "src/pages/Dashboard/Overview/Icon/ProfitIcon";
 import { FundOverview } from "src/types/API";
-import ApiCall from "src/components/ApiCall";
+import FundApiCall from "src/components/FundApiCall";
 
 const url = `${process.env.REACT_APP_API_URL}api/fund_overview`;
 
 export const Overview: React.FC<{}> = () => {
-  const data = ApiCall<FundOverview>(url)
+  const data = FundApiCall<FundOverview>(url);
 
   return (
     <>
