@@ -11,7 +11,8 @@ import { DropdownItem } from "src/types/DataInput";
 
 import { styled } from "@mui/material";
 
-export const FundContext = createContext("camsif_main");
+export const AccountContext = createContext("camsif");
+export const FundContext = createContext("main");
 
 const StyledDiv = styled("div")({
   height: "80px",
@@ -22,37 +23,39 @@ export const Dashboard: React.FC<{}> = () => {
   const fundItems: DropdownItem[] = [
     {
       label: "Main",
-      value: "camsif_main",
+      value: "main",
     },
     {
       label: "Tech",
-      value: "camsif_tech",
+      value: "tech",
     },
   ];
 
   return (
-    <FundContext.Provider value={fund}>
-      <Wrapper>
-        <FlexContainer>
-          <FlexItem responsive={{ xs: 12, sm: 6, md: 8 }}>
-            <Header1>Dashboard</Header1>
-          </FlexItem>
-          <FlexItem responsive={{ xs: 12, sm: 6, md: 4 }}>
-            <StyledDiv>
-              <Dropdown
-                state={fund}
-                setState={setFund}
-                label="Fund"
-                items={fundItems}
-                minWidth={150}
-              />
-            </StyledDiv>
-          </FlexItem>
-        </FlexContainer>
-        <Overview />
-        <Details />
-      </Wrapper>
-    </FundContext.Provider>
+    <AccountContext.Provider value="camsif">
+      <FundContext.Provider value={fund}>
+        <Wrapper>
+          <FlexContainer>
+            <FlexItem responsive={{ xs: 12, sm: 6, md: 8 }}>
+              <Header1>Dashboard</Header1>
+            </FlexItem>
+            <FlexItem responsive={{ xs: 12, sm: 6, md: 4 }}>
+              <StyledDiv>
+                <Dropdown
+                  state={fund}
+                  setState={setFund}
+                  label="Fund"
+                  items={fundItems}
+                  minWidth={150}
+                />
+              </StyledDiv>
+            </FlexItem>
+          </FlexContainer>
+          <Overview />
+          <Details />
+        </Wrapper>
+      </FundContext.Provider>
+    </AccountContext.Provider>
   );
 };
 

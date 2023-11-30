@@ -1,13 +1,15 @@
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
-import { FundContext } from "src/pages/Dashboard";
+import { AccountContext, FundContext } from "src/pages/Dashboard";
 
 export const ApiCall = <Data>(url: string) => {
+  const account = useContext(AccountContext);
   const fund = useContext(FundContext);
   const [data, setData] = useState<Data | undefined>(undefined);
 
   useEffect(() => {
     const req = new FormData();
+    req.append("account", account);
     req.append("fund", fund);
     setData(undefined);
     axios
@@ -18,9 +20,9 @@ export const ApiCall = <Data>(url: string) => {
       .catch((error) => {
         console.log(error);
       });
-  }, [fund, url]);
+  }, [account, fund, url]);
 
-  return data
+  return data;
 };
 
-export default ApiCall
+export default ApiCall;

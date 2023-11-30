@@ -31,7 +31,7 @@ export const PnLCard: React.FC<{}> = () => {
             xAxis={xAxis}
             series={series}
             height={300}
-            leftMargin={70}
+            leftMargin={90}
           />
         </TitledFlexCard>
       ) : (
