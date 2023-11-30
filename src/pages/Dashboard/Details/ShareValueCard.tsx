@@ -26,7 +26,7 @@ const ShareValueRowMap = (
     shareValueRows.push({
       stock: stock,
       shares: shares,
-      value: Number(value_data[stock].toFixed(2)),
+      value: Number(value_data[stock]?.toFixed(2)),
     });
   }
   return shareValueRows;

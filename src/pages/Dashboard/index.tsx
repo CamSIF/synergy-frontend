@@ -26,8 +26,32 @@ export const Dashboard: React.FC<{}> = () => {
       value: "main",
     },
     {
+      label: "Consumer",
+      value: "consumer",
+    },
+    {
+      label: "Energy",
+      value: "energy",
+    },
+    {
+      label: "Healthcare",
+      value: "healthcare",
+    },
+    {
+      label: "Industrials",
+      value: "industrials",
+    },
+    {
+      label: "Special sits",
+      value: "special_sits",
+    },
+    {
       label: "Tech",
       value: "tech",
+    },
+    {
+      label: "TMT",
+      value: "tmt",
     },
   ];
 
