@@ -11,13 +11,13 @@ interface LineChartProps {
   title?: string;
 }
 
-export default function LineChart({
+export const LineChart: React.FC<LineChartProps> = ({
   xAxis,
   series,
   title,
   width,
   height,
-}: LineChartProps) {
+}) => {
   return (
     <>
       {title && <ChartTitle>{title}</ChartTitle>}
@@ -33,4 +33,6 @@ export default function LineChart({
       />
     </>
   );
-}
+};
+
+export default LineChart;
