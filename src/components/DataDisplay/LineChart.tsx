@@ -9,6 +9,7 @@ interface LineChartProps {
   width?: number;
   height?: number;
   title?: string;
+  leftMargin?: number;
 }
 
 const containString = (array: (string | number)[]): boolean => {
@@ -26,26 +27,29 @@ export const LineChart: React.FC<LineChartProps> = ({
   title,
   width,
   height,
+  leftMargin,
 }) => {
   return (
     <>
       {title && <ChartTitle>{title}</ChartTitle>}
-        <Line
-          xAxis={[
-            {
-              scaleType: containString(xAxis) ? "point" : undefined,
-              data: xAxis,
-            },
-          ]}
-          series={series.map((yaxis, idx) => ({
-            ...yaxis,
-            curve: "linear",
-            color: chooseColor(idx),
-          }))}
-          width={width}
-          height={height}
-          sx={{ overflowX: "scroll" }}
-        />
+      <Line
+        xAxis={[
+          {
+            scaleType: containString(xAxis) ? "point" : undefined,
+            data: xAxis,
+          },
+        ]}
+        series={series.map((yaxis, idx) => ({
+          ...yaxis,
+          curve: "linear",
+          color: chooseColor(idx),
+          showMark: false,
+        }))}
+        width={width}
+        height={height}
+        margin={{ left: leftMargin ?? 45 }}
+        sx={{ overflowX: "scroll" }}
+      />
     </>
   );
 };
