@@ -55,17 +55,19 @@ export const PieChart: React.FC<PieChartComponentProps> = ({
 
   return (
     <>
-      {title && <ChartTitle>{title}</ChartTitle>}
-      {percentage === "toggle" && (
-        <SwitchDiv>
-          <Switch
-            state={percentageState}
-            setState={setPercentageState}
-            label="Show percentage"
-            labelPlacement="end"
-          />
-        </SwitchDiv>
-      )}
+      <div>
+        {title && <ChartTitle>{title}</ChartTitle>}
+        {percentage === "toggle" && (
+          <SwitchDiv>
+            <Switch
+              state={percentageState}
+              setState={setPercentageState}
+              label="Show percentage"
+              labelPlacement="end"
+            />
+          </SwitchDiv>
+        )}
+      </div>
 
       <Pie
         series={[
