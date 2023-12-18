@@ -49,7 +49,7 @@ export const Dashboard: React.FC<{}> = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [account]);
 
   return (
     <AccountContext.Provider value="camsif">
