@@ -12,26 +12,34 @@ interface OverviewCardProps {
 const RowDiv = styled("div")({
   display: "flex",
   alignItems: "center",
+  height: "51px",
 });
 
 const ContentDiv = styled("div")({
   padding: "0 16px 0",
 });
 
-const Amount = styled(Typography)({
+export const Amount = styled(Typography)({
   fontWeight: "bolder",
   fontSize: "1.2em",
 }) as typeof Typography;
 
-const Title = styled(Typography)({
+export const Title = styled(Typography)({
   fontSize: "0.9em",
 }) as typeof Typography;
 
-const numberFormatter = new Intl.NumberFormat('en-US', {
-  style: 'decimal',
+const numberFormatter = new Intl.NumberFormat("en-US", {
+  style: "decimal",
   minimumFractionDigits: 2,
-  maximumFractionDigits: 2
+  maximumFractionDigits: 2,
 });
+
+const formatted_amount = (amount: number): string => {
+  if (amount < 0) {
+    return `- £ ${numberFormatter.format(Math.abs(amount))}`;
+  }
+  return `£ ${numberFormatter.format(amount)}`;
+};
 
 export const OverviewCard: React.FC<OverviewCardProps> = ({
   icon,
@@ -43,7 +51,7 @@ export const OverviewCard: React.FC<OverviewCardProps> = ({
       <RowDiv>
         {icon}
         <ContentDiv>
-          <Amount>£ {numberFormatter.format(amount)}</Amount>
+          <Amount>{formatted_amount(amount)}</Amount>
           <Title color="text.secondary">{title}</Title>
         </ContentDiv>
       </RowDiv>

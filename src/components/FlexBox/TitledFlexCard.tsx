@@ -5,17 +5,17 @@ import { styled } from "@mui/material/styles";
 
 import { ResponsiveStyle } from "src/types/FlexBox";
 
-interface PnLCardProps {
+interface DetailsCardProps {
   title: string;
   children: ReactNode;
   responsive: ResponsiveStyle;
 }
 
-const HeaderRow = styled("div")({
+export const HeaderRow = styled("div")({
   margin: "0 0 16px",
 });
 
-export const DetailsCard: React.FC<PnLCardProps> = ({
+export const TitledFlexCard: React.FC<DetailsCardProps> = ({
   title,
   children,
   responsive,
@@ -30,4 +30,4 @@ export const DetailsCard: React.FC<PnLCardProps> = ({
   );
 };
 
-export default DetailsCard;
+export default TitledFlexCard;

@@ -12,9 +12,9 @@ export const Details: React.FC<{}> = () => {
     <>
       <Header2>Details</Header2>
       <FlexContainer>
-        <PnLCard title="Total profit and loss" />
-        <AllocationCard title="Allocation per equity" />
-        <ShareValueCard title="Shares and value per equity" />
+        <PnLCard />
+        <AllocationCard />
+        <ShareValueCard />
       </FlexContainer>
     </>
   );
