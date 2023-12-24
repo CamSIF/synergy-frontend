@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 interface OverviewCardProps {
   icon: JSX.Element;
   title: string;
-  amount: number;
+  value: string;
 }
 
 const RowDiv = styled("div")({
@@ -19,7 +19,7 @@ const ContentDiv = styled("div")({
   padding: "0 16px 0",
 });
 
-export const Amount = styled(Typography)({
+export const Value = styled(Typography)({
   fontWeight: "bolder",
   fontSize: "1.2em",
 }) as typeof Typography;
@@ -28,30 +28,17 @@ export const Title = styled(Typography)({
   fontSize: "0.9em",
 }) as typeof Typography;
 
-const numberFormatter = new Intl.NumberFormat("en-US", {
-  style: "decimal",
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
-});
-
-const formatted_amount = (amount: number): string => {
-  if (amount < 0) {
-    return `- £ ${numberFormatter.format(Math.abs(amount))}`;
-  }
-  return `£ ${numberFormatter.format(amount)}`;
-};
-
 export const OverviewCard: React.FC<OverviewCardProps> = ({
   icon,
   title,
-  amount,
+  value,
 }) => {
   return (
-    <FlexCard responsive={{ xs: 12, sm: 6, md: 4 }}>
+    <FlexCard responsive={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
       <RowDiv>
         {icon}
         <ContentDiv>
-          <Amount>{formatted_amount(amount)}</Amount>
+          <Value>{value}</Value>
           <Title color="text.secondary">{title}</Title>
         </ContentDiv>
       </RowDiv>
