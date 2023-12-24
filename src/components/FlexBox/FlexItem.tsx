@@ -12,7 +12,13 @@ export const FlexItem: React.FC<GridItemsProps> = ({
   children,
 }) => {
   return (
-    <Grid item xs={responsive.xs} sm={responsive.sm} md={responsive.md}>
+    <Grid
+      item
+      xs={responsive.xs}
+      sm={responsive.sm}
+      md={responsive.md}
+      lg={responsive.lg}
+    >
       {children}
     </Grid>
   );
