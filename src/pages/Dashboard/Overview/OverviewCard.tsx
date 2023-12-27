@@ -9,6 +9,11 @@ interface OverviewCardProps {
   value: string;
 }
 
+const IconDiv = styled("div")({
+  width: "28px",
+  textAlign: "center"
+});
+
 const RowDiv = styled("div")({
   display: "flex",
   alignItems: "center",
@@ -36,7 +41,7 @@ export const OverviewCard: React.FC<OverviewCardProps> = ({
   return (
     <FlexCard responsive={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
       <RowDiv>
-        {icon}
+        <IconDiv>{icon}</IconDiv>
         <ContentDiv>
           <Value>{value}</Value>
           <Title color="text.secondary">{title}</Title>

@@ -53,7 +53,7 @@ export const Overview: React.FC<{}> = () => {
             />
             <OverviewCard
               icon={<ProfitPercentageIcon />}
-              title="Percentage of profit"
+              title="Percentage of Profit"
               value={formatted_percentage(data.percentage_pnl)}
             />
           </>
