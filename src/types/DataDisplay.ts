@@ -1,5 +1,5 @@
 export interface SimpleRow {
-  [key: string]: string | number;
+  [key: string]: string | number | JSX.Element;
 }
 
 export interface SimpleCol<Row> {
