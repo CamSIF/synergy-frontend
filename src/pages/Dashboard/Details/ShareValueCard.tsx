@@ -1,4 +1,5 @@
 import React from "react";
+import { styled } from "@mui/material/styles";
 import TitledFlexCard from "src/components/FlexBox/TitledFlexCard";
 import SimpleTable from "src/components/DataDisplay/SimpleTable";
 import { SimpleCol, SimpleRow } from "src/types/DataDisplay";
@@ -10,10 +11,19 @@ const responsive = { xs: 12, sm: 12, md: 6 };
 const url_shares = `${process.env.REACT_APP_API_URL}api/fund_shares_per_equity`;
 const url_value = `${process.env.REACT_APP_API_URL}api/fund_value_by_equity`;
 
+const RedSpan = styled("span")(({ theme }) => ({
+  color: theme.palette.error.main
+}));
+
+const GreenSpan = styled("span")(({ theme }) => ({
+  color: theme.palette.success.main
+}));
+
 const columns: SimpleCol<ShareValueRow>[] = [
   { field: "stock", headerName: "Stock" },
   { field: "value", headerName: "Value (£)" },
   { field: "shares", headerName: "Shares" },
+  { field: "position", headerName: "Position" },
 ];
 
 const ShareValueRowMap = (
@@ -25,8 +35,9 @@ const ShareValueRowMap = (
   for (const [stock, shares] of Object.entries(shares_data)) {
     shareValueRows.push({
       stock: stock,
-      shares: shares,
-      value: Number(value_data[stock]?.toFixed(2)),
+      shares: shares < 0 ? <RedSpan>{shares}</RedSpan> : <GreenSpan>{`+${shares}`}</GreenSpan>,
+      value: Math.abs(Number(value_data[stock]?.toFixed(2))),
+      position: shares < 0 ? "SHORT" : "LONG",
     });
   }
   return shareValueRows;
@@ -35,7 +46,8 @@ const ShareValueRowMap = (
 interface ShareValueRow extends SimpleRow {
   stock: string;
   value: number;
-  shares: number;
+  shares: JSX.Element;
+  position: string;
 }
 
 export const ShareValueCard: React.FC<{}> = () => {
