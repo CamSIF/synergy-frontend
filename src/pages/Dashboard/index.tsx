@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Wrapper from "src/components/Wrapper";
 import Header1 from "src/components/Title/Header1";
-import Dropdown from "src/components/DataInput/Dropdown";
+import Dropdown, { DropdownEvent } from "src/components/DataInput/Dropdown";
 import DropdownSkeleton from "src/components/DataInput/DropdownSkeleton";
 import FlexContainer from "src/components/FlexBox/FlexContainer";
 import FlexItem from "src/components/FlexBox/FlexItem";
@@ -32,6 +32,12 @@ export const Dashboard: React.FC<{}> = () => {
   const [fund, setFund] = useState(initialFund);
   const [fundList, setFundList] = useState<string[] | undefined>(undefined);
   const account = useContext(AccountContext);
+
+  const handleChange = (event: DropdownEvent) => {
+    const newFund = event.target.value as string;
+    setFund(newFund);
+    window.history.replaceState(null, "", `?fund=${newFund}`);
+  };
 
   useEffect(() => {
     const req = new FormData();
@@ -77,7 +83,7 @@ export const Dashboard: React.FC<{}> = () => {
                 ) : (
                   <Dropdown
                     state={fund}
-                    setState={setFund}
+                    handleChange={handleChange}
                     label="Fund"
                     items={fundList.map((fund) => ({
                       label: fundToLabel(fund),
