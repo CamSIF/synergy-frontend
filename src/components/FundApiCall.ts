@@ -1,6 +1,11 @@
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
-import { AccountContext, FundContext } from "src/pages/Dashboard/DashboardFunction";
+import { enqueueAlertStack } from "src/components/AlertStack";
+import {
+  AccountContext,
+  FundContext,
+  valueToLabel,
+} from "src/pages/Dashboard/PortfolioHandler";
 
 export const FundApiCall = <Data>(url: string) => {
   const account = useContext(AccountContext);
@@ -17,8 +22,13 @@ export const FundApiCall = <Data>(url: string) => {
       .then((response) => {
         setData(response.data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        enqueueAlertStack(
+          `Some data from the portfolio '${valueToLabel(account)} ${valueToLabel(
+            fund
+          )}' cannot be found`,
+          "error"
+        );
       });
   }, [account, fund, url]);
 

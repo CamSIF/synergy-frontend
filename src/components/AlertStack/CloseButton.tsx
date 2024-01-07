@@ -10,6 +10,7 @@ interface IconProps {
 
 const StyledButton = styled(Button)({
   minWidth: 0,
+  margin: "0 4px 0 0"
 });
 
 const StyledIcon = styled(FontAwesomeIcon)({

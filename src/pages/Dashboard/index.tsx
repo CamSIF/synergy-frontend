@@ -11,11 +11,11 @@ import AlertStack, { enqueueAlertStack } from "src/components/AlertStack";
 import Overview from "src/pages/Dashboard/Overview";
 import Details from "src/pages/Dashboard/Details";
 import {
-  capitalizedFund,
-  fundToLabel,
+  capitalizeWord,
+  valueToLabel,
   AccountContext,
   FundContext,
-} from "src/pages/Dashboard/DashboardFunction";
+} from "src/pages/Dashboard/PortfolioHandler";
 
 import { styled } from "@mui/material";
 
@@ -50,13 +50,20 @@ export const Dashboard: React.FC<{}> = () => {
         if (!list.includes(fund)) {
           setFund(defaultFund);
           enqueueAlertStack(
-            `Invalid fund '${fund}'. Display default portfolio`,
+            `Invalid link with fund parameter '${fund}'. Display default portfolio '${valueToLabel(
+              account
+            )} ${valueToLabel(defaultFund)}'`,
             "error"
           );
         }
       })
       .catch(() => {
-        enqueueAlertStack("Error loading account portfolio", "error");
+        enqueueAlertStack(
+          `Error loading the list of funds from the account '${valueToLabel(
+            account
+          )}'`,
+          "error"
+        );
       });
   }, [account, fund]);
 
@@ -74,7 +81,7 @@ export const Dashboard: React.FC<{}> = () => {
                 {fundList === undefined ? (
                   <DropdownSkeleton
                     initialItem={{
-                      label: capitalizedFund(initialFund),
+                      label: capitalizeWord(initialFund),
                       value: initialFund,
                     }}
                     label="Fund"
@@ -86,7 +93,7 @@ export const Dashboard: React.FC<{}> = () => {
                     handleChange={handleChange}
                     label="Fund"
                     items={fundList.map((fund) => ({
-                      label: fundToLabel(fund),
+                      label: valueToLabel(fund),
                       value: fund,
                     }))}
                     minWidth={150}

@@ -26,6 +26,7 @@ export const enqueueAlertStack = (message: string, variant: VariantType) =>
 export const AlertStack: React.FC<{}> = () => {
   return (
     <SnackbarProvider
+      preventDuplicate
       maxSnack={3}
       Components={{
         success: StyledMaterialDesignContent,
