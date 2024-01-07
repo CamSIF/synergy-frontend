@@ -12,6 +12,8 @@ import Details from "src/pages/Dashboard/Details";
 import { styled } from "@mui/material";
 import DropdownSkeleton from "src/components/DataInput/DropdownSkeleton";
 
+import AlertStack, { enqueueAlertStack } from "src/components/AlertStack";
+
 const capitalizedFund = (val: string) =>
   val[0].toUpperCase() + val.slice(1).toLowerCase();
 
@@ -22,7 +24,8 @@ const fundToLabel = (fund: string): string => {
 };
 
 const queryParameters = new URLSearchParams(window.location.search);
-const initialFund = queryParameters.get("fund") ?? "main";
+const defaultFund = "main";
+const initialFund = queryParameters.get("fund") ?? defaultFund;
 
 export const AccountContext = createContext("camsif");
 export const FundContext = createContext(initialFund);
@@ -44,17 +47,26 @@ export const Dashboard: React.FC<{}> = () => {
     axios
       .post(url, req)
       .then((response) => {
-        setFundList(response.data.funds);
+        const list = response.data.funds;
+        setFundList(list);
+        if (!list.includes(fund)) {
+          setFund(defaultFund);
+          enqueueAlertStack(
+            "Invalid fund URL. Display default portfolio",
+            "error"
+          );
+        }
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        enqueueAlertStack("Error loading account portfolio", "error");
       });
-  }, [account]);
+  }, [account, fund]);
 
   return (
     <AccountContext.Provider value="camsif">
       <FundContext.Provider value={fund}>
         <Wrapper>
+          <AlertStack />
           <FlexContainer>
             <FlexItem responsive={{ xs: 12, sm: 6, md: 8 }}>
               <Header1>Dashboard</Header1>

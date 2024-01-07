@@ -10,7 +10,7 @@ let theme = createTheme({
       main: "#6D95CA",
     },
     error: {
-      main: "#FF6E6E",
+      main: "#EF5552",
     },
     success: {
       main: "#55FF98",
