@@ -8,7 +8,7 @@ import { DropdownItem } from "src/types/DataInput";
 
 interface DropdownProps {
   state: string;
-  setState: React.Dispatch<React.SetStateAction<string>>;
+  handleChange: (event: DropdownEvent) => void;
   label: string;
   items: DropdownItem[];
   minWidth?: number;
@@ -16,15 +16,11 @@ interface DropdownProps {
 
 const Dropdown: React.FC<DropdownProps> = ({
   state,
-  setState,
+  handleChange,
   label,
   items,
   minWidth,
 }) => {
-  const handleChange = (event: SelectChangeEvent) => {
-    setState(event.target.value as string);
-  };
-
   return (
     <Box minWidth={minWidth}>
       <FormControl fullWidth>
@@ -40,5 +36,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     </Box>
   );
 };
+
+export type DropdownEvent = SelectChangeEvent;
 
 export default Dropdown;

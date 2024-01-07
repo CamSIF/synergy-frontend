@@ -1,42 +1,43 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Wrapper from "src/components/Wrapper";
 import Header1 from "src/components/Title/Header1";
-import Dropdown from "src/components/DataInput/Dropdown";
+import Dropdown, { DropdownEvent } from "src/components/DataInput/Dropdown";
+import DropdownSkeleton from "src/components/DataInput/DropdownSkeleton";
 import FlexContainer from "src/components/FlexBox/FlexContainer";
 import FlexItem from "src/components/FlexBox/FlexItem";
+import AlertStack, { enqueueAlertStack } from "src/components/AlertStack";
 
 import Overview from "src/pages/Dashboard/Overview";
 import Details from "src/pages/Dashboard/Details";
+import {
+  capitalizeWord,
+  valueToLabel,
+  AccountContext,
+  FundContext,
+} from "src/pages/PortfolioHandler";
 
 import { styled } from "@mui/material";
-import DropdownSkeleton from "src/components/DataInput/DropdownSkeleton";
 
-const initialItem = {
-  label: "Main",
-  value: "main",
-};
+const queryParameters = new URLSearchParams(window.location.search);
+const defaultFund = "main";
+const initialFund = queryParameters.get("fund") ?? defaultFund;
+const url = `${process.env.REACT_APP_API_URL}api/get_account_funds`;
 
-export const AccountContext = createContext("camsif");
-export const FundContext = createContext(initialItem.value);
-
-const valueToLabel = (value: string): string => {
-  const valueArray = value.split("_");
-  const capitalizedValueArray = valueArray.map(
-    (val) => val[0].toUpperCase() + val.slice(1).toLowerCase()
-  );
-  return capitalizedValueArray.join(" ");
-};
 const StyledDiv = styled("div")({
   height: "80px",
 });
 
-const url = `${process.env.REACT_APP_API_URL}api/get_account_funds`;
-
 export const Dashboard: React.FC<{}> = () => {
-  const [fund, setFund] = useState(useContext(FundContext));
+  const [fund, setFund] = useState(initialFund);
   const [fundList, setFundList] = useState<string[] | undefined>(undefined);
   const account = useContext(AccountContext);
+
+  const handleChange = (event: DropdownEvent) => {
+    const newFund = event.target.value as string;
+    setFund(newFund);
+    window.history.replaceState(null, "", `?fund=${newFund}`);
+  };
 
   useEffect(() => {
     const req = new FormData();
@@ -44,17 +45,33 @@ export const Dashboard: React.FC<{}> = () => {
     axios
       .post(url, req)
       .then((response) => {
-        setFundList(response.data.funds);
+        const list = response.data.funds;
+        setFundList(list);
+        if (!list.includes(fund)) {
+          setFund(defaultFund);
+          enqueueAlertStack(
+            `Invalid link with fund parameter '${fund}'. Display default portfolio '${valueToLabel(
+              account
+            )} ${valueToLabel(defaultFund)}'`,
+            "error"
+          );
+        }
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        enqueueAlertStack(
+          `Error loading the list of funds from the account '${valueToLabel(
+            account
+          )}'`,
+          "error"
+        );
       });
-  }, [account]);
+  }, [account, fund]);
 
   return (
     <AccountContext.Provider value="camsif">
       <FundContext.Provider value={fund}>
         <Wrapper>
+          <AlertStack />
           <FlexContainer>
             <FlexItem responsive={{ xs: 12, sm: 6, md: 8 }}>
               <Header1>Dashboard</Header1>
@@ -63,14 +80,17 @@ export const Dashboard: React.FC<{}> = () => {
               <StyledDiv>
                 {fundList === undefined ? (
                   <DropdownSkeleton
-                    initialItem={initialItem}
+                    initialItem={{
+                      label: capitalizeWord(initialFund),
+                      value: initialFund,
+                    }}
                     label="Fund"
                     minWidth={150}
                   />
                 ) : (
                   <Dropdown
                     state={fund}
-                    setState={setFund}
+                    handleChange={handleChange}
                     label="Fund"
                     items={fundList.map((fund) => ({
                       label: valueToLabel(fund),
