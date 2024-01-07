@@ -12,21 +12,21 @@ import Details from "src/pages/Dashboard/Details";
 import { styled } from "@mui/material";
 import DropdownSkeleton from "src/components/DataInput/DropdownSkeleton";
 
-const initialItem = {
-  label: "Main",
-  value: "main",
+const capitalizedFund = (val: string) =>
+  val[0].toUpperCase() + val.slice(1).toLowerCase();
+
+const fundToLabel = (fund: string): string => {
+  const fundArray = fund.split("_");
+  const capitalizedFundArray = fundArray.map((val) => capitalizedFund(val));
+  return capitalizedFundArray.join(" ");
 };
+
+const queryParameters = new URLSearchParams(window.location.search);
+const initialFund = queryParameters.get("fund") ?? "main";
 
 export const AccountContext = createContext("camsif");
-export const FundContext = createContext(initialItem.value);
+export const FundContext = createContext(initialFund);
 
-const valueToLabel = (value: string): string => {
-  const valueArray = value.split("_");
-  const capitalizedValueArray = valueArray.map(
-    (val) => val[0].toUpperCase() + val.slice(1).toLowerCase()
-  );
-  return capitalizedValueArray.join(" ");
-};
 const StyledDiv = styled("div")({
   height: "80px",
 });
@@ -63,7 +63,10 @@ export const Dashboard: React.FC<{}> = () => {
               <StyledDiv>
                 {fundList === undefined ? (
                   <DropdownSkeleton
-                    initialItem={initialItem}
+                    initialItem={{
+                      label: capitalizedFund(initialFund),
+                      value: initialFund,
+                    }}
                     label="Fund"
                     minWidth={150}
                   />
@@ -73,7 +76,7 @@ export const Dashboard: React.FC<{}> = () => {
                     setState={setFund}
                     label="Fund"
                     items={fundList.map((fund) => ({
-                      label: valueToLabel(fund),
+                      label: fundToLabel(fund),
                       value: fund,
                     }))}
                     minWidth={150}
