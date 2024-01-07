@@ -1,43 +1,35 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Wrapper from "src/components/Wrapper";
 import Header1 from "src/components/Title/Header1";
 import Dropdown from "src/components/DataInput/Dropdown";
+import DropdownSkeleton from "src/components/DataInput/DropdownSkeleton";
 import FlexContainer from "src/components/FlexBox/FlexContainer";
 import FlexItem from "src/components/FlexBox/FlexItem";
+import AlertStack, { enqueueAlertStack } from "src/components/AlertStack";
 
 import Overview from "src/pages/Dashboard/Overview";
 import Details from "src/pages/Dashboard/Details";
+import {
+  capitalizedFund,
+  fundToLabel,
+  AccountContext,
+  FundContext,
+} from "src/pages/Dashboard/DashboardFunction";
 
 import { styled } from "@mui/material";
-import DropdownSkeleton from "src/components/DataInput/DropdownSkeleton";
-
-import AlertStack, { enqueueAlertStack } from "src/components/AlertStack";
-
-const capitalizedFund = (val: string) =>
-  val[0].toUpperCase() + val.slice(1).toLowerCase();
-
-const fundToLabel = (fund: string): string => {
-  const fundArray = fund.split("_");
-  const capitalizedFundArray = fundArray.map((val) => capitalizedFund(val));
-  return capitalizedFundArray.join(" ");
-};
 
 const queryParameters = new URLSearchParams(window.location.search);
 const defaultFund = "main";
 const initialFund = queryParameters.get("fund") ?? defaultFund;
-
-export const AccountContext = createContext("camsif");
-export const FundContext = createContext(initialFund);
+const url = `${process.env.REACT_APP_API_URL}api/get_account_funds`;
 
 const StyledDiv = styled("div")({
   height: "80px",
 });
 
-const url = `${process.env.REACT_APP_API_URL}api/get_account_funds`;
-
 export const Dashboard: React.FC<{}> = () => {
-  const [fund, setFund] = useState(useContext(FundContext));
+  const [fund, setFund] = useState(initialFund);
   const [fundList, setFundList] = useState<string[] | undefined>(undefined);
   const account = useContext(AccountContext);
 
@@ -52,7 +44,7 @@ export const Dashboard: React.FC<{}> = () => {
         if (!list.includes(fund)) {
           setFund(defaultFund);
           enqueueAlertStack(
-            "Invalid fund URL. Display default portfolio",
+            `Invalid fund '${fund}'. Display default portfolio`,
             "error"
           );
         }

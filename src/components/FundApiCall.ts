@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
-import { AccountContext, FundContext } from "src/pages/Dashboard";
+import { AccountContext, FundContext } from "src/pages/Dashboard/DashboardFunction";
 
 export const FundApiCall = <Data>(url: string) => {
   const account = useContext(AccountContext);

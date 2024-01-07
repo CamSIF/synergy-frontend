@@ -5,17 +5,17 @@ import {
   VariantType,
   MaterialDesignContent,
   enqueueSnackbar,
+  closeSnackbar,
 } from "notistack";
+import CloseButton from "src/components/AlertStack/CloseButton";
 
 const StyledMaterialDesignContent = styled(MaterialDesignContent)(
   ({ theme }) => ({
     "&.notistack-MuiContent-success": {
-      backgroundColor: theme.palette.success.main,
-      color: theme.palette.success.contrastText,
+      backgroundColor: theme.palette.success.dark,
     },
     "&.notistack-MuiContent-error": {
-      backgroundColor: theme.palette.error.main,
-      color: theme.palette.error.contrastText,
+      backgroundColor: theme.palette.error.dark,
     },
   })
 );
@@ -31,6 +31,9 @@ export const AlertStack: React.FC<{}> = () => {
         success: StyledMaterialDesignContent,
         error: StyledMaterialDesignContent,
       }}
+      action={(snackbarId) => (
+        <CloseButton onClick={() => closeSnackbar(snackbarId)} />
+      )}
     />
   );
 };
