@@ -15,7 +15,7 @@ import {
   valueToLabel,
   AccountContext,
   FundContext,
-} from "src/pages/Dashboard/PortfolioHandler";
+} from "src/pages/PortfolioHandler";
 
 import { styled } from "@mui/material";
 

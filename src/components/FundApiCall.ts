@@ -5,7 +5,7 @@ import {
   AccountContext,
   FundContext,
   valueToLabel,
-} from "src/pages/Dashboard/PortfolioHandler";
+} from "src/pages/PortfolioHandler";
 
 export const FundApiCall = <Data>(url: string) => {
   const account = useContext(AccountContext);
@@ -24,9 +24,9 @@ export const FundApiCall = <Data>(url: string) => {
       })
       .catch(() => {
         enqueueAlertStack(
-          `Some data from the portfolio '${valueToLabel(account)} ${valueToLabel(
-            fund
-          )}' cannot be found`,
+          `Some data from the portfolio '${valueToLabel(
+            account
+          )} ${valueToLabel(fund)}' cannot be found`,
           "error"
         );
       });
