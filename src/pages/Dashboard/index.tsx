@@ -8,6 +8,11 @@ import FlexContainer from "src/components/FlexBox/FlexContainer";
 import FlexItem from "src/components/FlexBox/FlexItem";
 import AlertStack, { enqueueAlertStack } from "src/components/AlertStack";
 
+/* empty module imports */
+import * as routes from "src/constants/routes";
+import { firebase, auth } from "src/firebase";
+import { withAuthentication } from "src/firebase/withAuthentication";
+
 import Overview from "src/pages/Dashboard/Overview";
 import Details from "src/pages/Dashboard/Details";
 import {
@@ -38,6 +43,14 @@ export const Dashboard: React.FC<{}> = () => {
     setFund(newFund);
     window.history.replaceState(null, "", `?fund=${newFund}`);
   };
+
+  // const LoginWithPopup = async (event: auth: MouseEvent<HTMLButtonEl) => {
+  //   await auth.signInWithPopup();
+  //   // return () => {
+  //   //   console.log("button pressed");
+  //   //   auth.signInWithPopup();
+  //   // };
+  // };
 
   useEffect(() => {
     const req = new FormData();
@@ -71,6 +84,9 @@ export const Dashboard: React.FC<{}> = () => {
     <AccountContext.Provider value="camsif">
       <FundContext.Provider value={fund}>
         <Wrapper>
+          <button onClick={() => auth.dosignInWithPopup(firebase.provider)}>
+            Login
+          </button>
           <AlertStack />
           <FlexContainer>
             <FlexItem responsive={{ xs: 12, sm: 6, md: 8 }}>
