@@ -10,6 +10,10 @@ export interface FundPerEquity {
 }
 
 export interface FundPNL {
-  dates: string[],
-  values: number[]
+  dates: string[];
+  values: number[];
+}
+
+export interface AccountFunds {
+  [key: string]: string[];
 }

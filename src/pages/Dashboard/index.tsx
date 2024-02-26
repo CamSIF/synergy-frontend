@@ -17,6 +17,8 @@ import {
   FundContext,
 } from "src/pages/PortfolioHandler";
 
+import { AccountFunds } from "src/types/API";
+
 import { styled } from "@mui/material";
 
 const queryParameters = new URLSearchParams(window.location.search);
@@ -30,7 +32,7 @@ const StyledDiv = styled("div")({
   height: "80px",
 });
 
-let accountFundMap: {[key: string]: string[]} | undefined = undefined;
+let accountFundMap: AccountFunds | undefined = undefined;
 
 export const Dashboard: React.FC<{}> = () => {
   const [fund, setFund] = useState(initialFund);
