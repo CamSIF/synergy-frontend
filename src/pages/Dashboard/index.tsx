@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState } from "react";
 import Wrapper from "src/components/Wrapper";
 import Header1 from "src/components/Title/Header1";
 import FlexContainer from "src/components/FlexBox/FlexContainer";
 import FlexItem from "src/components/FlexBox/FlexItem";
 import AlertStack from "src/components/AlertStack";
+import { DropdownEvent } from "src/components/DataInput/Dropdown";
 
 import Overview from "src/pages/Dashboard/Overview";
 import Details from "src/pages/Dashboard/Details";
@@ -16,9 +16,9 @@ import {
 } from "src/pages/PortfolioHandler";
 
 import { AccountFunds } from "src/types/API";
-import { AccountDropDown } from "./AccountDropDown";
-import { FundDropDown } from "./FundDropDown";
-import { DropDownApiCall } from "../DropDownApiCall";
+import { AccountDropDown } from "src/pages/Dashboard/AccountDropDown";
+import { FundDropDown } from "src/pages/Dashboard/FundDropDown";
+import { DropDownApiCall } from "src/pages/DropDownApiCall";
 
 export const Dashboard: React.FC<{}> = () => {
   const [fund, setFund] = useState(initialFund);
@@ -34,12 +34,31 @@ export const Dashboard: React.FC<{}> = () => {
   DropDownApiCall(
     fund,
     account,
-    setAccount,
-    setAccountList,
     setFund,
     setFundList,
+    setAccount,
+    setAccountList,
     setAccountFundMap
   );
+
+  const handleAccountChange = (event: DropdownEvent) => {
+    const newAccount = event.target.value as string;
+    const newFundList = accountFundMap![newAccount];
+    setAccount(newAccount);
+    setFundList(newFundList);
+    setFund(newFundList[0]);
+    window.history.replaceState(null, "", `?account=${newAccount}`);
+  };
+
+  const handleFundChange = (event: DropdownEvent) => {
+    const newFund = event.target.value as string;
+    setFund(newFund);
+    window.history.replaceState(
+      null,
+      "",
+      `?account=${account}&fund=${newFund}`
+    );
+  };
 
   return (
     <AccountContext.Provider value={account}>
@@ -53,16 +72,12 @@ export const Dashboard: React.FC<{}> = () => {
             <AccountDropDown
               account={account}
               accountList={accountList}
-              accountFundMap={accountFundMap}
-              setAccount={setAccount}
-              setFundList={setFundList}
-              setFund={setFund}
+              handleAccountChange={handleAccountChange}
             />
             <FundDropDown
-              account={account}
               fund={fund}
               fundList={fundList}
-              setFund={setFund}
+              handleFundChange={handleFundChange}
             />
           </FlexContainer>
           <Overview />

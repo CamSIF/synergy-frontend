@@ -13,10 +13,10 @@ const url = `${process.env.REACT_APP_API_URL}api/get_all_account_funds`;
 export const DropDownApiCall = (
   fund: string,
   account: string,
-  setAccount: React.Dispatch<React.SetStateAction<string>>,
-  setAccountList: React.Dispatch<React.SetStateAction<string[] | undefined>>,
   setFund: React.Dispatch<React.SetStateAction<string>>,
   setFundList: React.Dispatch<React.SetStateAction<string[] | undefined>>,
+  setAccount: React.Dispatch<React.SetStateAction<string>>,
+  setAccountList: React.Dispatch<React.SetStateAction<string[] | undefined>>,
   setAccountFundMap: React.Dispatch<
     React.SetStateAction<AccountFunds | undefined>
   >

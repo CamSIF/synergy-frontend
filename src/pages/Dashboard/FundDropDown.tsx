@@ -10,28 +10,16 @@ import {
 } from "src/pages/PortfolioHandler";
 
 interface FundDropDownProps {
-  account: string;
   fund: string;
   fundList: string[] | undefined;
-  setFund: React.Dispatch<React.SetStateAction<string>>;
+  handleFundChange: (event: DropdownEvent) => void;
 }
 
 export const FundDropDown: React.FC<FundDropDownProps> = ({
-  account,
   fund,
   fundList,
-  setFund,
+  handleFundChange,
 }) => {
-  const handleFundChange = (event: DropdownEvent) => {
-    const newFund = event.target.value as string;
-    setFund(newFund);
-    window.history.replaceState(
-      null,
-      "",
-      `?account=${account}&fund=${newFund}`
-    );
-  };
-
   return (
     <FlexItem responsive={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
       <StyledDiv>
